@@ -1,0 +1,21 @@
+body {
+    background-image: url(../images/wallpaper.jpg);
+    background-size: 100% ;
+    background-repeat: no-repeat;
+}
+h1 {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 140px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 15px;
+    color: rgb(29, 30, 32)
+}
+
+#subwrapper {
+    margin-top: 220px;
+    text-align: center;  
+    color: whitesmoke;
+    width: 100%;
+}
