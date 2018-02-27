@@ -1,5 +1,6 @@
 $('#start').on('click', function() {
 $('#start').remove();
+
 game.loadQuestion()
 })
 
@@ -16,50 +17,50 @@ var questions = [
   question: "Which soundtrack from the 90's featured the Loney Tunes?",
   answers: ["Titanic", "SpaceJam", "BraveHeart", "Pulp Fiction" ],
   correctAnswer: "SpaceJam",
-  gif: "assets/images/spacejam.mp4",
+  gif:"https://i.giphy.com/media/LUahbgrnfip5C/source.gif",
   },
   {
   question: "What animal was Neo instructed to follow at the beginning of the movie The Matrix?",
   answers: ["Green Snake","Black Mouse","Gray Owl","White Rabbit"],
   correctAnswer:"White Rabbit",
-// //   image: ,
+  gif: "https://media.giphy.com/media/1yvoDVJQsTfHi/giphy.gif"
   },
   {
   question: "What was the name of the original Red ranger?",
   answers:["Jason","Tommy","Billy","Zachary"],
   correctAnswer:"Jason",
-// //   image: ,
+  gif: "https://media.giphy.com/media/nDgKYZqJeK5l6/giphy.gif" ,
   },
   {
   question: "Who had the most #1 hit singles in the 90's?",
   answers: ["Mariah Carey","Michael Jackson", "Boys to Men", "Whitney Houston"],
-  correctAnswer:"Mariah Carey"
-// //   image: ,
+  correctAnswer:"Mariah Carey",
+  gif: "https://media.giphy.com/media/8RtwsZCgRzMt2/giphy.gif",
   },
   {
   question: "Which game console was NOT released in the 90's?",
   answers: ["Nintendo GameCube","Super Nintendo", "Playstation 1", "DreamCast"],
   correctAnswer: "Nintendo GameCube",
-// //   image: ,
+  gif: "https://media.giphy.com/media/Z9GOfgSz5p5Go/giphy.gif",
   },
   {
   question: 'In the 1992 Olympic, what was the average points scored by the "Dream Team"?',
   answers: ["97","107","117","127"],
   correctAnswer: "117",
-//   image: ,
+  gif: "https://media.giphy.com/media/l0ErIQliPIVVPxle0/giphy.gif",
   },
   {
   question: "Which actor/actress was kill first in the horror movie Scream?",
   answers: ["Halle Berry","Jim Carry","Tom Hanks","Drew Barrymore"],
   correctAnswer: "Drew Barrymore",
-//   image: ,
+  gif: "https://media.giphy.com/media/mtO2kkFT9KMA8/giphy.gif",
   },
 ]
-
+var questionNum = 0
 var game = {
   questions:questions,
-  currentQuestion:0,
   counter:30,
+  currentQuestion:0,
   correct:0,
   incorrect:0,
   unanswered: 0,
@@ -68,7 +69,6 @@ var game = {
     game.counter--
     $('#counter').html(game.counter)
     if(game.counter<=0) {
-      console.log("TIME UP!")
       game.timeUp()
     }
 
@@ -76,27 +76,30 @@ var game = {
   loadQuestion: function() {
     timer = setInterval(game.countdown,1000)
     game.counter = 30;
-    $('#subwrapper').html("<h5> <span id='counter'>30</span>  </h5>")
-    $('#subwrapper').append('<h2>'+questions[game.currentQuestion].
+    $('#trivaArea').html("<h5> <span id='counter'>30</span>  </h5>")
+    $('#trivaArea').append('<h2>'+questions[game.currentQuestion].
       question+'</h2>')
     for(var i = 0; i < questions[game.currentQuestion].answers.length; i++) {
-      $('#subwrapper').append('<button class="answer-button btn btn-outline-light" id="button-'+i+'" data-name="'+questions[game.
+      $('#trivaArea').append('<button class="answer-button btn btn-outline-light" id="button-'+i+'" data-name="'+questions[game.
         currentQuestion].answers[i]+ '">'+questions[game.
         currentQuestion].answers[i]+'</button>')
       id="button"
     }
   },
+
+  // $(div).append=<img>
   nextQuestion: function() {
     game.counter = 30;
     $('#counter').html(game.counter)
     game.currentQuestion++
     game.loadQuestion()
   },
+
   timeUp: function() {
     clearInterval(timer)
     game.unanswered++
-    $('#subwrapper').html('<h2>OUT OF TIME!</h2>')
-    $('#subwrapper').append('<h3>The correct answer was: ' + questions[game.
+    $('#trivaArea').html('<h2>OUT OF TIME!</h2>')
+    $('#trivaArea').append('<h3>The correct answer was: ' + questions[game.
     currentQuestion].correctAnswer+'</h3>')
    if(game.currentQuestion==questions.length-1) {
       setTimeout(game.results,3*1000)
@@ -104,14 +107,17 @@ var game = {
       setTimeout(game.nextQuestion,3*1000)
     }
   },
+
   results: function() {
     clearInterval(timer)
-    $('#subwrapper').html('<h2>ALL DONE!</h2>')
-    $('#subwrapper').append("<h3>Correct: "+game.correct+"</h3>")
-    $('#subwrapper').append("<h3>Incorrect: "+game.incorrect+"</h3>")
-    $('#subwrapper').append("<h3>Unanswered: "+game.unanswered+"</h3>")
-    $('#subwrapper').append("<button id='reset'>RESET</button>")
+    $('#trivaArea').html('<h2>ALL DONE!</h2>')
+    $('#trivaArea').append("<h3>Correct: "+game.correct+"</h3>")
+    $('#trivaArea').append("<h3>Incorrect: "+game.incorrect+"</h3>")
+    $('#trivaArea').append("<h3>Unanswered: "+game.unanswered+"</h3>")
+    $('#trivaArea').append("<button id='reset'>RESET</button>")
   },
+
+  // Correct or Incorrect Actions
   clicked: function(e) {
     clearInterval(timer)
     if($(e.target).data("name")==questions[game.currentQuestion].
@@ -122,14 +128,14 @@ var game = {
     }
 
   },
+
   answeredCorrectly: function() {
-    console.log("YOU GOT IT!")
     clearInterval(timer)
     game.correct++
-    $('#subwrapper').html('questions.gif')
-    $('#subwrapper').append('<h2>YOU GOT IT RIGHT!</h2>')
-    $('#subwrapper').append('<h3>The correct answer was: ' + questions[game.
-      currentQuestion].correctAnswer+'</h3>')
+    $('#trivaArea').html('<img width="450" height="270" src=' + questions[questionNum].gif +'>')
+    $('#trivaArea').append('<h2>YOU GOT IT RIGHT!</h2>')
+    $('#trivaArea').append('<h3>The correct answer was: ' + questions[game.currentQuestion].correctAnswer+'</h3>')
+    questionNum++
     if(game.currentQuestion==questions.length-1) {
       setTimeout(game.results,3*1000)
     }else{
@@ -138,18 +144,21 @@ var game = {
 
   },
   answeredIncorrectly: function() {
-    console.log("WRONG!")
     clearInterval(timer)
     game.incorrect++
-    $('#subwrapper').html('<h2>YOU GOT IT WRONG!</h2>')
-    $('#subwrapper').append('<h3>The correct answer was: ' + questions[game.
+    $('#trivaArea').html('<img width="450" height="270" src=' + questions[questionNum].gif +'>')
+    $('#trivaArea').append('<h2>YOU GOT IT WRONG!</h2>')
+    $('#trivaArea').append('<h3>The correct answer was: ' + questions[game.
       currentQuestion].correctAnswer+'</h3>')
+      questionNum++
     if(game.currentQuestion==questions.length-1) {
       setTimeout(game.results,3*1000)
     }else{
       setTimeout(game.nextQuestion,3*1000)
     }
   },
+
+  // reset functions
   reset: function() {
     game.currentQuestion =0
     game.counter = 0
