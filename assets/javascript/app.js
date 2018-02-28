@@ -132,10 +132,9 @@ var game = {
   answeredCorrectly: function() {
     clearInterval(timer)
     game.correct++
-    $('#trivaArea').html('<img width="450" height="270" src=' + questions[questionNum].gif +'>')
+    $('#trivaArea').html('<img width="450" height="270" src=' + questions[game.currentQuestion].gif +'>')
     $('#trivaArea').append('<h2>YOU GOT IT RIGHT!</h2>')
     $('#trivaArea').append('<h3>The correct answer was: ' + questions[game.currentQuestion].correctAnswer+'</h3>')
-    questionNum++
     if(game.currentQuestion==questions.length-1) {
       setTimeout(game.results,3*1000)
     }else{
@@ -146,11 +145,10 @@ var game = {
   answeredIncorrectly: function() {
     clearInterval(timer)
     game.incorrect++
-    $('#trivaArea').html('<img width="450" height="270" src=' + questions[questionNum].gif +'>')
+    $('#trivaArea').html('<img width="450" height="270" src=' + questions[game.currentQuestion].gif +'>')
     $('#trivaArea').append('<h2>YOU GOT IT WRONG!</h2>')
     $('#trivaArea').append('<h3>The correct answer was: ' + questions[game.
       currentQuestion].correctAnswer+'</h3>')
-      questionNum++
     if(game.currentQuestion==questions.length-1) {
       setTimeout(game.results,3*1000)
     }else{
